@@ -1,0 +1,36 @@
+Example endpoint returning a list of colors by palette
+In this example the specification is taken from external YAML file
+---
+definitions:
+  Book:
+    type: object
+    properties:
+     title:
+       type: string
+     author:
+       type: string
+     rating:
+       type: integer
+       format: int32
+       one_of: [1,2,3,4,5]
+  Books:
+    type: object
+    properties:
+      success:
+        type: string
+        enum:
+          - "False"
+          - "True"
+      books:
+        type: array
+        items:
+          $ref: '#/definitions/Book'
+      total_books:
+        type: integer
+        format: int32
+
+responses:
+  200:
+    description: A list of books
+    schema:
+      $ref: '#/definitions/Books'
